@@ -1,0 +1,65 @@
+PROBLEM #1
+URLs cannot have spaces. Instead, all spaces in a string are replaced with %20. Write an algorithm that replaces all spaces in a string with %20.
+
+You may not use the replace() method or regular expressions to solve this problem. Solve the problem with and without recursion.
+
+**********************
+
+PLANNING
+Input: "Jasmine Ann Jones"
+Output: "Jasmine%20Ann%20Jones"
+Edge Cases: Argument is not a string
+
+**********************
+
+WIHTOUT RECURSION SOLUTION
+
+Pseudocode
+const getUrl = (string) => {
+  // Check that string is in fact string
+    // If not a string, return error message
+  // Split string into array on the space
+  // Return arr joined with %20
+}
+
+Algorithm
+const getUrl = (string) => {
+  if (typeof string != 'string') {
+    return "Please enter a string.";
+  }
+  const arr = string.split(" ");
+  return arr.join("%20");
+}
+
+Testing
+console.log(getUrl("Jasmine Ann Jones")); // "Jasmine%20Ann%20Jones"
+
+**********************
+
+WITH RECURSION
+
+Pseudocode
+const getUrlRecursion = (string) => {
+  // Termination Case: Check that the string is in fact a string
+  // Split string into array
+  // Base Case: If array has a length of one, 
+    // Return the only element in that array
+  // Else
+    // Return concatenated string of first array element + %20 + invoke the funtion with arr sliced at the first index, then joined back into a string
+}
+
+Algorithm
+const getUrlRecursion = (string) => {
+  if (typeof string != 'string') {
+    return "Please enter a string.";
+  }
+  const arr = string.split(" ");
+  if (arr.length === 1) {
+      return arr[0];
+    } else {
+      return arr[0].concat("%20").concat(getUrlRecursion(arr.slice(1).join(" ")));
+    }
+}
+
+Testing
+console.log(getUrlRecursion("Jasmine Ann Jones")); // "Jasmine%20Ann%20Jones"

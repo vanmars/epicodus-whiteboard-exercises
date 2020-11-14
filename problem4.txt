@@ -1,0 +1,60 @@
+PROBLEM
+Question #4: Checking for Uniqueness
+Write an algorithm that determines whether all the elements in a string are unique. You may not convert the string into an array or use array methods to solve this problem. The algorithm should return a boolean.
+
+**********************
+
+PLANNING
+Input Data Type: string
+Output Data Type: boolean
+
+Examples
+Input: "hello"
+Output: false
+Input: "copyright"
+Output: true
+
+Edge Cases: Input not actually a string
+Question: Will letters always be lower case? If not, is a lower case letter equal to its upper case letter?
+
+**********************
+
+SOLUTION 
+
+Psuedocode
+const isUniq = (string) => {
+  // Termination Case
+  // if argument is not a string
+    // return error message 
+
+  // Base Case
+  // if length of string is one
+    // return true
+
+  // Otherwise Case
+    // get a substring starting at index 1, and see if it matches to value of string at index 0
+      // if it matches return false;
+      // else return true && invoke the function again with substring starting at index 1
+}
+
+
+Algorithm
+const isUniq = (string) => {
+  if (typeof string != 'string'){
+    return "Please enter a string.";
+  }
+  if (string.length === 1){
+    return true;
+  } else {
+    if (string.substring(1).match(string[0])){
+      return false;
+    } else {
+      return  true && isUniq(string.substring(1));
+    }
+  }
+}
+
+
+Testing
+console.log(isUniq("hello"));       // false
+console.log(isUniq("copyright"));   // true

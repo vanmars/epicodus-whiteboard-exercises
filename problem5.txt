@@ -1,0 +1,90 @@
+PROBLEM
+Question #5: Array Sorting
+Write an algorithm that sorts an array without using the sort() method. There are many different sorting algorithms - take the time to read about the following:
+
+Quick sort
+Merge sort
+Heap sort
+Insertion sort
+Bubble sort
+Selection sort
+
+You may implement any of the above algorithms (or your own) to solve the problem - as long as it doesn't use sort().
+
+**********************
+
+PLANNING
+Input: unsorted array
+Output: sorted array
+
+Example
+Input: [9, 2, 7, 12]
+Output: [2, 7, 9, 12]
+
+Approach: Merge Sort
+
+Edge Cases: Array does not have same data type
+Questions: Can I assume data type will always be the same? What kind of data types should I expect?
+Things I'd Research: Look into the other types of sorts. What if array is very, very long: are some sorts more efficient than others?
+
+**********************
+
+SOLUTION 
+
+Psuedocode
+// Create Method for Merging Two Arrays
+const merge = (left, right) => {
+  // set resultArray, leftIndex and rightIndex to falsey values
+  
+  // While neither the left or right index is greater than the legnth of their Arrays
+    // if the left array at left index is less
+      // push it to result array
+      // update leftIndex to + 1
+    // else do the opposite
+      // push right value to result array
+      // update rightIndex + 1
+
+    // take care of leftovers: return resultArray concatenated with left.slice of leftIndex and right.slice of rightIndex
+    
+}
+
+// Create Method for Breaking Down Array Into Atomic Arrays and then running Recursive Merge Function on Them
+const mergeSort  = (unsortedArray) => {
+  // if the array has a length of 1 or less
+    // return the array; it is already sorted
+
+  // create const for holding middle index
+  // create constant for holding left subArray
+  // create constant for holding right subArray
+
+  // return the merge function with mergeSort being called on left and right
+}
+
+
+Algorithm
+const merge = (left, right) => {
+  let resultArray = [], leftIndex = 0, rightIndex = 0;
+  while (leftIndex < left.length && rightIndex < right.length)
+    if (left[leftIndex]< right[rightIndex]) {
+      resultArray.push(left[leftIndex]);
+      leftIndex ++;
+    } else {
+      resultArray.push(right[rightIndex]);
+      rightIndex++;
+    }
+  return resultArray.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+}
+
+const mergeSort  = (unsortedArray) => {
+ if (unsortedArray.length <=1) {
+   return unsortedArray;
+ }
+ const middle = Math.floor(unsortedArray.length/2);
+ const left = unsortedArray.slice(0, middle);
+ const right = unsortedArray.slice(middle);
+ return merge(mergeSort(left), mergeSort(right));
+}
+
+
+Testing
+console.log(mergeSort([9, 2, 7, 12]));      // [2, 7, 9, 12]

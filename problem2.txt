@@ -1,0 +1,114 @@
+PROBLEM
+Question #2: Array Deduping
+Write an algorithm that removes duplicates from an array. Do not use a function like filter() to solve this. Once you have solved the problem, demonstrate how it can be solved with filter(). Solve the problem with and without recursion.
+
+**********************
+
+PLANNING
+Input: [7, 9, "hi", 12, "hi" 7, 53]
+Output: [7, 9, "hi", 12, 53]
+Edge Cases: Empty arrays? Arrays with null or undefined entries? Arrays with arrays/objects? For strings does "hi" equal "Hi" or are those two distinct?
+Questions/Research: How to compare arrays and objects
+
+**********************
+
+SOLUTION WITHOUT RECURSION
+
+Psuedocode
+const removeDuplicates = (arr) => {
+  // Loop over every element
+    // while a subarray of elements after the index element includes the index elemenbt
+      // create subArray variable to  hold elements after the index
+      // create index element to store index where the duplicate element occurs
+      // delete element from array at that substring index + i + 1
+  // After loop runs, return the arr
+}
+
+Algorithm
+const removeDuplicates = (arr) => {
+  for (i=0; i<arr.length; i++) {
+    while (arr.slice(i+1).includes(arr[i])){
+      let subArray = arr.slice(i+1);
+      const index = subArray.indexOf(arr[i]);
+      arr.splice(i + index + 1, 1);
+    }
+  }
+  return arr;
+}
+
+Testing
+console.log(removeDuplicates([7, 9, "hi", 12, "hi", 7, 53]));     // [7, 9, "hi", 12, 53]
+
+**********************
+
+SOLUTION WITH RECURSION
+
+Psuedocode
+const removeDuplicatesWithRecursion = (arr) => {
+  // Termination Case
+  // if the argument is not an array    
+    // return error message
+ 
+ // Base Case
+  // if the array has a length of 1
+    // return the first and only element
+ 
+ // Otherwise
+  // Declare another function  that will remove elements from subarray of all other elements
+    // create variable to store new subarray, starting at index 1
+    // if the subarray does not include the first array element
+      // return the array
+        return array;
+      // Otherwise
+        // set index to first index of where the arr[0] element is duplicated
+        // delete from the array the element at that index + 1
+        // return invoked function again with new array
+    // 
+    // invoke the new function with arr argument and store the result in a varialbe
+    // return the first element of that result and concat it with function called again with the result, sliced at index 1
+}
+
+Algorithm
+const removeDuplicatesWithRecursion = (arr) => {
+  if (Array.isArray(arr) != true){
+    return "Please enter an array.";
+  }
+  if (arr.length === 1){
+    return arr[0];
+  } else {
+    const removeElementsFromSubArray = (array) => {
+      let subArray = array.slice(1);
+      if (!subArray.includes(array[0])){
+        return array;
+      } else{
+      const index = subArray.indexOf(array[0]);
+      array.splice(index+1, 1);
+      return removeElementsFromSubArray(array);
+      }
+    }
+    const result = removeElementsFromSubArray(arr);
+    return [result[0]].concat(removeDuplicatesWithRecursion(result.slice(1)));
+  }
+}
+
+Testing
+console.log(removeDuplicatesWithRecursion([7, 9, "hi", 12, "hi", 7, 53]));    // [7, 9, "hi", 12, 53]
+
+**********************
+
+SOLUTION WITH FILTER
+
+Psuedocode
+const removeDuplicatesWithFilter = (arr) => {
+  // save result of filter an array by index and element: if the first index of the element equals the index of that element, add the element to new array
+  const result = arr.filter((el, idx) => arr.indexOf(el) === idx);
+  // return result
+}
+
+Algorithm
+const removeDuplicatesWithFilter = (arr) => {
+  return arr.filter((el, idx) => arr.indexOf(el) === idx);
+}
+
+Testing
+console.log(removeDuplicatesWithFilter([7, 9, "hi", 12, "hi", 7, 53]));       // [7, 9, "hi", 12, 53]
